@@ -72,7 +72,16 @@ void Stack_Error( int error_code ) {
  * @param stack Ukazatel na strukturu zásobníku
  */
 void Stack_Init( Stack *stack ) {
-	solved = false; /* V případě řešení, smažte tento řádek! */
+	if(stack == NULL) {
+		Stack_Error(SERR_INIT);
+		return;
+	}
+
+	// allocate the array
+	stack->array = malloc(sizeof(char) * MAX_STACK);
+
+	// nastavit vrchol
+	stack->topIndex = -1;
 }
 
 /**
@@ -85,7 +94,7 @@ void Stack_Init( Stack *stack ) {
  * @returns true v případě, že je zásobník prázdný, jinak false
  */
 bool Stack_IsEmpty( const Stack *stack ) {
-	solved = false; /* V případě řešení, smažte tento řádek! */
+	return stack->topIndex == -1;
 }
 
 /**
@@ -101,7 +110,7 @@ bool Stack_IsEmpty( const Stack *stack ) {
  * @returns true v případě, že je zásobník plný, jinak false
  */
 bool Stack_IsFull( const Stack *stack ) {
-	solved = false; /* V případě řešení, smažte tento řádek! */
+	return stack->topIndex + 1 == STACK_SIZE;
 }
 
 /**
@@ -117,7 +126,14 @@ bool Stack_IsFull( const Stack *stack ) {
  * @param dataPtr Ukazatel na cílovou proměnnou
  */
 void Stack_Top( const Stack *stack, char *dataPtr ) {
-	solved = false; /* V případě řešení, smažte tento řádek! */
+	// if the stack is empty
+	if(Stack_IsEmpty(stack)){
+		Stack_Error(SERR_TOP);
+		return;
+	}
+
+	// get the top value
+	*dataPtr = stack->array[stack->topIndex];
 }
 
 
@@ -134,7 +150,14 @@ void Stack_Top( const Stack *stack, char *dataPtr ) {
  * @param stack Ukazatel na inicializovanou strukturu zásobníku
  */
 void Stack_Pop( Stack *stack ) {
-	solved = false; /* V případě řešení, smažte tento řádek! */
+	// if the stack is empty
+	if(Stack_IsEmpty(stack)){
+		// don't call the error
+		return;
+	}
+
+	// decrement top index by one
+	stack->topIndex -= 1;
 }
 
 
@@ -149,7 +172,14 @@ void Stack_Pop( Stack *stack ) {
  * @param data Znak k vložení
  */
 void Stack_Push( Stack *stack, char data ) {
-	solved = false; /* V případě řešení, smažte tento řádek! */
+	// if stack is full
+	if(Stack_IsFull(stack)){
+		Stack_Error(SERR_PUSH);
+		return;
+	}
+
+	stack->topIndex += 1; // we are adding new element
+	stack->array[stack->topIndex] = data;
 }
 
 
@@ -160,7 +190,8 @@ void Stack_Push( Stack *stack, char data ) {
  * @param stack Ukazatel na inicializovanou strukturu zásobníku
  */
 void Stack_Dispose( Stack *stack ) {
-	solved = false; /* V případě řešení, smažte tento řádek! */
+	stack->topIndex = -1;
+	free(stack->array); // free that array
 }
 
 /* Konec c202.c */
