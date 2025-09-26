@@ -191,7 +191,13 @@ void Stack_Push( Stack *stack, char data ) {
  */
 void Stack_Dispose( Stack *stack ) {
 	stack->topIndex = -1;
-	free(stack->array); // free that array
+
+	if(stack->array != NULL){
+		free(stack->array); // free that array
+
+		// make sure it doesn't get freed twice
+		stack->array = NULL;
+	}
 }
 
 /* Konec c202.c */
