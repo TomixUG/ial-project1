@@ -121,7 +121,7 @@ void DLL_Dispose( DLList *list ) {
  */
 void DLL_InsertFirst( DLList *list, long data ) {
 	// try to allocate newElement
-	DLLElementPtr newElement = malloc(sizeof(DLLElementPtr));
+	DLLElementPtr newElement = malloc(sizeof(struct DLLElement));
 	if(newElement == NULL){
 		DLL_Error();
 		return;
@@ -156,7 +156,7 @@ void DLL_InsertFirst( DLList *list, long data ) {
  */
 void DLL_InsertLast( DLList *list, long data ) {
 	// try to allocate newElement
-	DLLElementPtr newElement = malloc(sizeof(DLLElementPtr));
+	DLLElementPtr newElement = malloc(sizeof(struct DLLElement));
 	if(newElement == NULL){
 		DLL_Error();
 		return;
@@ -392,7 +392,7 @@ void DLL_InsertAfter( DLList *list, long data ) {
 	}
 
 	// try to allocate new element
-	DLLElementPtr newElement = malloc(sizeof(DLLElementPtr));
+	DLLElementPtr newElement = malloc(sizeof(struct DLLElement));
 	if(newElement == NULL){
 		DLL_Error();
 		return;
@@ -431,7 +431,7 @@ void DLL_InsertBefore( DLList *list, long data ) {
 	}
 
 	// try to allocate new element
-	DLLElementPtr newElement = malloc(sizeof(DLLElementPtr));
+	DLLElementPtr newElement = malloc(sizeof(struct DLLElement));
 	if(newElement == NULL){
 		DLL_Error();
 		return;
